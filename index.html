@@ -5,14 +5,56 @@
     <meta name="viewport" content="width=device-width" />
     <title>repl.it</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body onload="loadDescriptors()">
+    <link
+      href="https://thinkle-iacs.github.io/web-design-portfolio/style.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
     <script src="script.js"></script>
+  </head>
+  <body onload="loadDescriptors();displayCode();">
     <h1>Sample Web Design Portfolio</h1>
 
-    <h2>Links</h2>
-    <div class="descriptor" data-ref="mod/links"></div>
-    <div class="descriptor" data-ref="mod/flexbox-basics"></div>
-    <div class="descriptor" data-ref="mod/image"></div>
+    <section>
+      <h2>Links</h2>
+      <div class="descriptor" data-ref="code/links"></div>
+      <div class="work">
+        I used links in my <a href="fixme.html">project here.</a>. Here's an
+        example of a valid internal and external link:
+        <pre>
+        <code class="language-html">
+          <!-- Magic script tag will escape HTML inside it -->
+          <script> 
+            <a href="/foo.html">This links to the file
+              bar.html on my server at the top-level folder called foo.html</a>
+            <a href="https://www.amazon.com">This links
+              to an external website that sells everything from A to Z.</a>
+          </script>
+        </code>
+        </pre>
+      </div>
+    </section>
+    <section>
+      <pre>
+        <code>
+          main {
+            display: block;
+            position: absolute;
+            width: 10px;
+            height: 10px;
+          }
+        </code>
+      </pre>
+      <div class="descriptor" data-ref="code/basic-tags"></div>
+    </section>
+    <div class="descriptor" data-ref="code/media"></div>
+    <pre>
+      Here is some code
+    </pre>
   </body>
 </html>
