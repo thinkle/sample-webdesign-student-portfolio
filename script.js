@@ -1,9 +1,19 @@
-console.log("Script loaded");
+/**
+ * This file has simple code for creating basic web design portfolios.
+ * 
+ * There are two main functions:
+ * 1. We allow fetching of skill descriptors from github where 
+ * the teacher will update them.
+ * 
+ * 2. We allow code formatting for pretty code examples without lots
+ * of busywork escaping code samples so they display in HTML.
+ */
+
 function loadDescriptors() {
-  console.log("load descriptors");
   let nodes = document.querySelectorAll(".descriptor");
   nodes.forEach((node) => {
     let url = node.getAttribute("data-ref");
+    console.log('Fetching descriptors for node',node,url)
     if (!url) {
       console.log("WARNING: No data-ref for element", node);
     } else {
@@ -24,18 +34,14 @@ const PORTFOLIO_SOURCE =
  * from github.
  * **/
 async function fetchDataForNode(node, path) {
-  console.log(url);
+  console.log(path);
   let response = await fetch(`${PORTFOLIO_BASE}/${path}`);
   if (response.status == 200) {
     let text = await response.text();
     node.innerHTML = text;
   } else {
     node.innerHTML = `
-    <div style="padding: 5px;
-              background-color:red;
-              color:white;
-              
-    ">
+    <div class="warning">
       Oops, <a href="${PORTFOLIO_SOURCE}/${path}">${path}</a> does not exist. Check list of skills at the
     <a href="${PORTFOLIO_BASE}">portfolio tree</a> or browser the 
       <a href="${PORTFOLIO_SOURCE}">source</a> 
@@ -47,11 +53,18 @@ async function fetchDataForNode(node, path) {
   }
 }
 
+/**
+ * Any <code><script></script></code> combo will be taken as a
+ * code example that we want to display using syntax highlighting.
+ */
 function displayCode() {
-  console.log("display code?");
   let fakeScriptTags = document.querySelectorAll("code script");
   fakeScriptTags.forEach((node) => {
     let text = node.innerText;
+    // Ignore leading or trailing backtick (for escaping)
+    text = text.replace(/^\s*\`/,'')
+    text = text.replace(/\`\s*$/,'')
+    // Fix entities (&, <, >)
     text = text.replace(/[&]/g, "&amp;");
     text = text.replace(/</g, "&lt;");
     text = text.replace(/>/g, "&gt;");
